@@ -1,25 +1,9 @@
-# Docker Compose für Produktiv-Server
-# Nutzt fertiges Image von GitHub Container Registry
+# Docker Compose für Server - Lädt fertiges Image von GitHub Container Registry
+# 
+# WICHTIG: Diese Datei enthält NUR die Plex Mood Curator Services!
+# Füge diese Services zu deiner bestehenden docker-compose.yml hinzu.
 
 services:
-  # Bestehende Services
-  plex-recommendations:
-    image: silkychap/plex-recommendations-ai:latest
-    container_name: plex-recommendations
-    env_file:
-      - .env
-    restart: unless-stopped
-
-  playlistSync:
-    image: rnagabhyrava/plexplaylistsync:latest
-    container_name: playlistSync
-    user: "1000:1000"
-    volumes:
-      - /home/tim/plex/data/missing_tracks:/data
-    env_file:
-      - .env.playlistSync
-    restart: unless-stopped
-
   # Plex Mood Curator Services
   plex-mood-acclaimed:
     image: ghcr.io/mutenroshi90/plex-mood-curator:latest
