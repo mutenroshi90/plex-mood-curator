@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Plex Mood Curator - Erstellt stimmungsbasierte Film-Kollektionen
+Plex Mood Curator - Creates mood-based movie collections
 """
 import os
 import sys
@@ -11,14 +11,14 @@ from openai import OpenAI
 PLEX_URL = os.getenv('PLEX_URL')
 PLEX_TOKEN = os.getenv('PLEX_TOKEN')
 OPENAI_KEY = os.getenv('OPENAI_API_KEY')
-LIBRARY_NAME = os.getenv('LIBRARY_NAME', 'Filme')
-MOOD_PROMPT = os.getenv('MOOD_PROMPT', 'Spannende Thriller für einen düsteren Abend')
+LIBRARY_NAME = os.getenv('LIBRARY_NAME', 'Movies')
+MOOD_PROMPT = os.getenv('MOOD_PROMPT', 'Thrilling movies for a dark evening')
 COLLECTION_NAME = os.getenv('COLLECTION_NAME', MOOD_PROMPT)
 MAX_MOVIES = int(os.getenv('MAX_MOVIES', '10'))
 OPENAI_MODEL = os.getenv('OPENAI_MODEL', 'gpt-3.5-turbo')
 
 def validate_environment():
-    """Prüft, ob alle erforderlichen Umgebungsvariablen gesetzt sind"""
+    """Validates that all required environment variables are set"""
     required_vars = {
         'PLEX_URL': PLEX_URL,
         'PLEX_TOKEN': PLEX_TOKEN,
@@ -32,7 +32,7 @@ def validate_environment():
         sys.exit(1)
 
 def create_mood_collection():
-    """Hauptfunktion: Erstellt eine stimmungsbasierte Kollektion"""
+    """Main function: Creates a mood-based collection"""
     print(f"🎬 Plex Mood Curator gestartet")
     print(f"📚 Bibliothek: {LIBRARY_NAME}")
     print(f"🎭 Stimmung: {MOOD_PROMPT}")

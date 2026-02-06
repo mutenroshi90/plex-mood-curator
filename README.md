@@ -1,152 +1,153 @@
 # 🎬 Plex Mood Curator
 
-Ein KI-gesteuerter Docker-Container, der automatisch stimmungsbasierte Film-Kollektionen in deinem Plex Media Server erstellt. Mit ChatGPT analysiert er deine Filmsammlung und erstellt kuratierte Listen wie "Düstere Cyberpunk-Thriller", "Wohlfühlfilme für Sonntage" oder "Actionreiche Blockbuster".
+An AI-powered Docker container that automatically creates mood-based movie collections in your Plex Media Server. Using ChatGPT, it analyzes your movie library and creates curated lists like "Dark Cyberpunk Thrillers", "Feel-Good Sunday Movies", or "Action-Packed Blockbusters".
+
+## 📜 Disclaimer
+
+**This tool is for personal use only.** By using Plex Mood Curator, you agree to:
+
+- Use your own Plex and OpenAI API credentials
+- Comply with [Plex Terms of Service](https://www.plex.tv/about/privacy-legal/plex-terms-of-service/) and [OpenAI Terms of Use](https://openai.com/policies/terms-of-use)
+- Use this tool solely for organizing your personal media library
+- Not use this for commercial purposes without proper licensing
+- Be responsible for any API costs incurred through OpenAI
+
+**No warranty:** This software is provided "as is" without warranty of any kind. The authors are not responsible for any damages or issues arising from its use.
 
 ## ✨ Features
 
-- 🤖 **KI-gesteuert**: Nutzt OpenAI (GPT-3.5/4) zur intelligenten Film-Auswahl
-- 🎭 **Flexibel**: Definiere beliebige Stimmungen und Themen
-- 🐳 **Containerisiert**: Läuft isoliert in Docker
-- 📚 **Multi-Collection**: Erstelle mehrere Kollektionen gleichzeitig
-- ⚡ **Leichtgewichtig**: Schlankes Python-Image mit minimalen Abhängigkeiten
+- 🤖 **AI-Powered**: Uses OpenAI (GPT-3.5/4) for intelligent movie selection
+- 🎭 **Flexible**: Define any mood or theme you want
+- 🐳 **Containerized**: Runs isolated in Docker
+- 📚 **Multi-Collection**: Create multiple collections simultaneously
+- ⚡ **Lightweight**: Slim Python image with minimal dependencies
 
-## 📋 Voraussetzungen
+## 📋 Prerequisites
 
 - Docker & Docker Compose
-- Plex Media Server mit API-Zugriff
-- OpenAI API-Key ([hier erstellen](https://platform.openai.com/api-keys))
-- Plex Authentication Token ([Anleitung](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/))
+- Plex Media Server with API access
+- OpenAI API Key ([create here](https://platform.openai.com/api-keys))
+- Plex Authentication Token ([guide](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/))
 
-## 🚀 Schnellstart
+## 🚀 Quick Start
 
 ```bash
 git clone https://github.com/mutenroshi90/plex-mood-curator.git
 cd plex-mood-curator
 
-# .env erstellen
+# Create .env file
 cp .env.example .env
-# Bearbeite .env mit deinen Daten
+# Edit .env with your credentials
 
-# Container starten (lädt Image von GitHub oder baut lokal)
+# Start containers (pulls image from GitHub or builds locally)
 docker compose up
 ```
 
-## ⚙️ Konfiguration
+## ⚙️ Configuration
 
-### Eigene Stimmungen hinzufügen
+### Adding Custom Moods
 
-Bearbeite die `docker-compose.yml` und füge neue Services hinzu:
+Edit `docker-compose.yml` and add new services:
 
 ```yaml
 plex-mood-horror:
+  image: ghcr.io/mutenroshi90/plex-mood-curator:latest
   build: .
   container_name: plex-mood-horror
+  env_file:
+    - .env
   environment:
-    - PLEX_URL=${PLEX_URL}
-    - PLEX_TOKEN=${PLEX_TOKEN}
-    - OPENAI_API_KEY=${OPENAI_API_KEY}
-    - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
-    - MOOD_PROMPT=Erschreckende Horror-Filme für Halloween
+    - MOOD_PROMPT=Terrifying horror movies perfect for Halloween
     - COLLECTION_NAME=🎃 Halloween Horror
     - MAX_MOVIES=15
   restart: "no"
 ```
 
-### Umgebungsvariablen
+### Environment Variables
 
-| Variable | Beschreibung | Standard | Pflicht |
-|----------|--------------|----------|---------|
-| `PLEX_URL` | URL deines Plex-Servers | - | ✅ |
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `PLEX_URL` | Your Plex server URL | - | ✅ |
 | `PLEX_TOKEN` | Plex Authentication Token | - | ✅ |
-| `OPENAI_API_KEY` | OpenAI API-Schlüssel | - | ✅ |
-| `LIBRARY_NAME` | Name der Plex-Bibliothek | `Filme` | ❌ |
-| `MOOD_PROMPT` | Beschreibung der gewünschten Stimmung | - | ✅ |
-| `COLLECTION_NAME` | Name der Kollektion in Plex | `MOOD_PROMPT` | ❌ |
-| `MAX_MOVIES` | Maximale Anzahl Filme | `10` | ❌ |
-| `OPENAI_MODEL` | GPT-Modell | `gpt-3.5-turbo` | ❌ |
+| `OPENAI_API_KEY` | OpenAI API Key | - | ✅ |
+| `LIBRARY_NAME` | Plex library name | `Movies` | ❌ |
+| `MOOD_PROMPT` | Description of desired mood | - | ✅ |
+| `COLLECTION_NAME` | Collection name in Plex | `MOOD_PROMPT` | ❌ |
+| `MAX_MOVIES` | Maximum number of movies | `10` | ❌ |
+| `OPENAI_MODEL` | GPT model to use | `gpt-3.5-turbo` | ❌ |
 
-## 🔄 Automatisierung
+## 🔄 Automation
 
 ### Cronjob (Linux/macOS)
 
 ```bash
-# Jeden Freitag um 18:00 Uhr ausführen
-0 18 * * 5 cd /pfad/zu/plex-mood-curator && docker compose up --build
+# Run every Friday at 6 PM
+0 18 * * 5 cd /path/to/plex-mood-curator && docker compose up
 ```
 
 ### Task Scheduler (Windows)
 
-1. Öffne Task Scheduler
-2. Erstelle neue Aufgabe
-3. Trigger: Wöchentlich, Freitag 18:00
-4. Aktion: `docker compose up --build`
-5. Startverzeichnis: `C:\pfad\zu\plex-mood-curator`
+1. Open Task Scheduler
+2. Create new task
+3. Trigger: Weekly, Friday 6 PM
+4. Action: `docker compose up`
+5. Start in: `C:\path\to\plex-mood-curator`
 
-## 🐳 Von GitHub Registry verwenden
+## 🐳 Using GitHub Container Registry
 
-Sobald du Code zu GitHub pushst, baut GitHub Actions automatisch ein Docker-Image und lädt es in die GitHub Container Registry (GHCR) hoch.
+Once you push code to GitHub, GitHub Actions automatically builds a Docker image and uploads it to GHCR.
 
-**Auf deinem Server:**
+**Image:** `ghcr.io/mutenroshi90/plex-mood-curator:latest`
 
-```yaml
-services:
-  plex-mood-thriller:
-    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
-    environment:
-      - PLEX_URL=${PLEX_URL}
-      # ... restliche Konfiguration
-```
+The docker-compose.yml is already configured to pull from GHCR when available.
 
-Das Image ist **privat** - nur du hast Zugriff darauf!
+## 🛠️ Development
 
-## 🛠️ Entwicklung
-
-### Lokales Testen
+### Local Testing
 
 ```bash
-# Dependencies installieren
+# Install dependencies
 pip install -r requirements.txt
 
-# Umgebungsvariablen setzen (Linux/macOS)
+# Set environment variables (Linux/macOS)
 export PLEX_URL="http://localhost:32400"
-export PLEX_TOKEN="dein-token"
-export OPENAI_API_KEY="dein-key"
-export MOOD_PROMPT="Testlauf"
+export PLEX_TOKEN="your-token"
+export OPENAI_API_KEY="your-key"
+export MOOD_PROMPT="Test run"
 
-# Skript ausführen
+# Run script
 python mood_curator.py
 ```
 
-### Eigene Modifikationen
+### Customization Ideas
 
-Das Projekt ist bewusst einfach gehalten. Du kannst:
-- Das OpenAI-Modell wechseln (GPT-4 für bessere Ergebnisse)
-- Weitere Filtermethoden hinzufügen (z.B. nach Jahr, Genre)
-- Mehrsprachigkeit implementieren
-- Logging erweitern
+- Switch OpenAI model (GPT-4 for better results)
+- Add filtering by year, genre, or rating
+- Implement multi-language support
+- Extend logging capabilities
 
-## 📝 Lizenz
+## 📝 License
 
-MIT License - siehe [LICENSE](LICENSE)
+MIT License - see [LICENSE](LICENSE)
 
-## 🤝 Beitragen
+## 🤝 Contributing
 
-Pull Requests sind willkommen! Für größere Änderungen öffne bitte zuerst ein Issue.
+Pull requests are welcome! For major changes, please open an issue first.
 
-## ⚠️ Hinweise
+## ⚠️ Important Notes
 
-- **API-Kosten**: OpenAI berechnet pro API-Aufruf. GPT-3.5-turbo ist günstig (~$0.002/1K tokens)
-- **Rate Limits**: OpenAI hat Rate-Limits. Für große Bibliotheken (>1000 Filme) eventuell Batching implementieren
-- **Plex-Token**: Behandle deinen Token wie ein Passwort! Committe **niemals** die `.env` zu Git
+- **API Costs**: OpenAI charges per API call. GPT-3.5-turbo is inexpensive (~$0.002/1K tokens)
+- **Rate Limits**: OpenAI has rate limits. For large libraries (>1000 movies), consider implementing batching
+- **Security**: Treat your tokens like passwords! Never commit `.env` to Git
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/dein-username/plex-mood-curator/issues)
-- **Diskussionen**: [GitHub Discussions](https://github.com/dein-username/plex-mood-curator/discussions)
+- **Issues**: [GitHub Issues](https://github.com/mutenroshi90/plex-mood-curator/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/mutenroshi90/plex-mood-curator/discussions)
 
 ## 🙏 Credits
 
-Inspiriert von [PlexAutoSkip](https://github.com/mdhiggins/PlexAutoSkip) und [Kometa](https://github.com/Kometa-Team/Kometa)
+Inspired by [PlexAutoSkip](https://github.com/mdhiggins/PlexAutoSkip) and [Kometa](https://github.com/Kometa-Team/Kometa)
 
 ---
 
