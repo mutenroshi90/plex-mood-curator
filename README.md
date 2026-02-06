@@ -19,8 +19,6 @@ Ein KI-gesteuerter Docker-Container, der automatisch stimmungsbasierte Film-Koll
 
 ## 🚀 Schnellstart
 
-### Lokal entwickeln
-
 ```bash
 git clone https://github.com/mutenroshi90/plex-mood-curator.git
 cd plex-mood-curator
@@ -29,32 +27,9 @@ cd plex-mood-curator
 cp .env.example .env
 # Bearbeite .env mit deinen Daten
 
-# Container bauen und starten
-docker compose up --build
+# Container starten (lädt Image von GitHub oder baut lokal)
+docker compose up
 ```
-
-### Auf Server verwenden (empfohlen)
-
-Wenn du das Projekt auf einem Server nutzen willst, verwende die fertig gebauten Images von GitHub:
-
-```bash
-# Repository klonen
-git clone https://github.com/mutenroshi90/plex-mood-curator.git
-cd plex-mood-curator
-
-# .env erstellen
-cp .env.example .env
-# Bearbeite .env mit deinen Daten
-
-# Fertiges Image von GitHub holen und starten
-docker compose -f docker-compose.server.yml up
-```
-
-**Vorteile:**
-- ✅ Kein Build auf dem Server nötig
-- ✅ Schneller Start
-- ✅ Automatisch aktualisiert wenn du pushst
-- ✅ Weniger Ressourcen auf dem Server
 
 ## ⚙️ Konfiguration
 
