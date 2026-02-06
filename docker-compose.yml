@@ -1,0 +1,121 @@
+services:
+  # Von der Kritik gelobte Filme
+  plex-mood-acclaimed:
+    build: .
+    container_name: plex-mood-acclaimed
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
+      - MOOD_PROMPT=Von der Kritik hochgelobte Meisterwerke und preisgekrönte Filme mit außergewöhnlicher cinematischer Qualität
+      - COLLECTION_NAME=🏆 Von der Kritik gelobte Filme
+      - MAX_MOVIES=20
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: "no"
+
+  # Düster Dystopisch
+  plex-mood-dystopian:
+    build: .
+    container_name: plex-mood-dystopian
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
+      - MOOD_PROMPT=Düstere dystopische Filme mit apokalyptischen Zukunftsszenarien und gesellschaftskritischen Themen
+      - COLLECTION_NAME=🌑 Düster Dystopisch
+      - MAX_MOVIES=15
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: "no"
+
+  # Action & Adrenalin
+  plex-mood-action:
+    build: .
+    container_name: plex-mood-action
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
+      - MOOD_PROMPT=Actionreiche Blockbuster mit spektakulären Stunts und intensiven Kämpfen
+      - COLLECTION_NAME=💥 Action & Adrenalin
+      - MAX_MOVIES=15
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: "no"
+
+  # 90 Minuten Filme
+  plex-mood-short:
+    build: .
+    container_name: plex-mood-short
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
+      - MOOD_PROMPT=Kurzweilige Filme mit einer Laufzeit von maximal 90 Minuten, perfekt für einen schnellen Filmabend
+      - COLLECTION_NAME=⏱️ 90 Minuten Filme
+      - MAX_MOVIES=20
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: "no"
+
+  # Date Night
+  plex-mood-date:
+    build: .
+    container_name: plex-mood-date
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
+      - MOOD_PROMPT=Romantische Filme für einen gemütlichen Date-Abend zu zweit
+      - COLLECTION_NAME=💕 Date Night
+      - MAX_MOVIES=15
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: "no"
+
+  # Animation
+  plex-mood-animation:
+    build: .
+    container_name: plex-mood-animation
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
+      - MOOD_PROMPT=Herausragende Animationsfilme für Jung und Alt, von Pixar bis Studio Ghibli
+      - COLLECTION_NAME=🎨 Animation
+      - MAX_MOVIES=20
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: "no"
+
+  # Wohlfühlfilme
+  plex-mood-feelgood:
+    build: .
+    container_name: plex-mood-feelgood
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
+      - MOOD_PROMPT=Wohlfühlfilme und leichte Komödien für entspannte Sonntage
+      - COLLECTION_NAME=☀️ Wohlfühl-Sonntag
+      - MAX_MOVIES=20
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: "no"
+
+  # Aktuell beliebt
+  plex-mood-trending:
+    build: .
+    container_name: plex-mood-trending
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LIBRARY_NAME=${LIBRARY_NAME:-Filme}
+      - MOOD_PROMPT=Aktuell besonders beliebte und viel diskutierte Blockbuster aus den letzten 2-3 Jahren
+      - COLLECTION_NAME=🔥 Aktuell beliebt
+      - MAX_MOVIES=20
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: "no"
+
