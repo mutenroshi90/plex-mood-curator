@@ -19,44 +19,42 @@ Ein KI-gesteuerter Docker-Container, der automatisch stimmungsbasierte Film-Koll
 
 ## 🚀 Schnellstart
 
-### 1. Repository klonen
+### Lokal entwickeln
 
 ```bash
-git clone https://github.com/dein-username/plex-mood-curator.git
+git clone https://github.com/mutenroshi90/plex-mood-curator.git
 cd plex-mood-curator
-```
 
-### 2. Umgebungsvariablen konfigurieren
-
-```bash
-# .env.example kopieren
+# .env erstellen
 cp .env.example .env
+# Bearbeite .env mit deinen Daten
 
-# .env mit deinen Daten bearbeiten
-nano .env
+# Container bauen und starten
+docker compose up --build
 ```
 
-Trage deine Daten ein:
-```env
-PLEX_URL=http://192.168.1.100:32400
-PLEX_TOKEN=dein-plex-token
-OPENAI_API_KEY=sk-dein-openai-key
-LIBRARY_NAME=Filme
-```
+### Auf Server verwenden (empfohlen)
 
-### 3. Container starten
+Wenn du das Projekt auf einem Server nutzen willst, verwende die fertig gebauten Images von GitHub:
 
 ```bash
-# Alle Kollektionen erstellen
-docker compose up --build
+# Repository klonen
+git clone https://github.com/mutenroshi90/plex-mood-curator.git
+cd plex-mood-curator
 
-# Nur eine spezifische Kollektion
-docker compose up plex-mood-thriller
+# .env erstellen
+cp .env.example .env
+# Bearbeite .env mit deinen Daten
+
+# Fertiges Image von GitHub holen und starten
+docker compose -f docker-compose.server.yml up
 ```
 
-### 4. In Plex prüfen
-
-Öffne deinen Plex Media Server und navigiere zu deiner Film-Bibliothek. Die neuen Kollektionen sollten dort erscheinen!
+**Vorteile:**
+- ✅ Kein Build auf dem Server nötig
+- ✅ Schneller Start
+- ✅ Automatisch aktualisiert wenn du pushst
+- ✅ Weniger Ressourcen auf dem Server
 
 ## ⚙️ Konfiguration
 
@@ -111,14 +109,20 @@ plex-mood-horror:
 
 ## 🐳 Von GitHub Registry verwenden
 
-Wenn du das Image auf GitHub Container Registry (GHCR) buildest:
+Sobald du Code zu GitHub pushst, baut GitHub Actions automatisch ein Docker-Image und lädt es in die GitHub Container Registry (GHCR) hoch.
+
+**Auf deinem Server:**
 
 ```yaml
 services:
   plex-mood-thriller:
-    image: ghcr.io/dein-username/plex-mood-curator:latest
-    # ... restliche Konfiguration
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      # ... restliche Konfiguration
 ```
+
+Das Image ist **privat** - nur du hast Zugriff darauf!
 
 ## 🛠️ Entwicklung
 
