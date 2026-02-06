@@ -1,6 +1,8 @@
-version: "3.3"
+# Docker Compose für Produktiv-Server
+# Nutzt fertiges Image von GitHub Container Registry
 
 services:
+  # Bestehende Services
   plex-recommendations:
     image: silkychap/plex-recommendations-ai:latest
     container_name: plex-recommendations
@@ -17,9 +19,10 @@ services:
     env_file:
       - .env.playlistSync
     restart: unless-stopped
-  # Von der Kritik gelobte Filme
+
+  # Plex Mood Curator Services
   plex-mood-acclaimed:
-    build: .
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
     container_name: plex-mood-acclaimed
     env_file:
       - .env
@@ -29,9 +32,8 @@ services:
       - MAX_MOVIES=20
     restart: "no"
 
-  # Düster Dystopisch
   plex-mood-dystopian:
-    build: .
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
     container_name: plex-mood-dystopian
     env_file:
       - .env
@@ -41,9 +43,8 @@ services:
       - MAX_MOVIES=15
     restart: "no"
 
-  # Action & Adrenalin
   plex-mood-action:
-    build: .
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
     container_name: plex-mood-action
     env_file:
       - .env
@@ -53,9 +54,8 @@ services:
       - MAX_MOVIES=15
     restart: "no"
 
-  # 90 Minuten Filme
   plex-mood-short:
-    build: .
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
     container_name: plex-mood-short
     env_file:
       - .env
@@ -65,9 +65,8 @@ services:
       - MAX_MOVIES=20
     restart: "no"
 
-  # Date Night
   plex-mood-date:
-    build: .
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
     container_name: plex-mood-date
     env_file:
       - .env
@@ -77,9 +76,8 @@ services:
       - MAX_MOVIES=15
     restart: "no"
 
-  # Animation
   plex-mood-animation:
-    build: .
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
     container_name: plex-mood-animation
     env_file:
       - .env
@@ -89,9 +87,8 @@ services:
       - MAX_MOVIES=20
     restart: "no"
 
-  # Wohlfühlfilme
   plex-mood-feelgood:
-    build: .
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
     container_name: plex-mood-feelgood
     env_file:
       - .env
@@ -101,9 +98,8 @@ services:
       - MAX_MOVIES=20
     restart: "no"
 
-  # Aktuell beliebt
   plex-mood-trending:
-    build: .
+    image: ghcr.io/mutenroshi90/plex-mood-curator:latest
     container_name: plex-mood-trending
     env_file:
       - .env
@@ -112,4 +108,3 @@ services:
       - COLLECTION_NAME=🔥 Aktuell beliebt
       - MAX_MOVIES=20
     restart: "no"
-
